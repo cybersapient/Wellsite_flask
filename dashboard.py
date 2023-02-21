@@ -1,7 +1,6 @@
 from flask import Blueprint, Response, request
 import json
 from dotenv import load_dotenv
-import uuid 
 from requests.auth import HTTPBasicAuth
 from requests import Session
 import pymongo
