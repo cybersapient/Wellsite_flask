@@ -9,7 +9,7 @@ on:
 env:
   ECS_SERVICE: wellsite-flask                # set this to your Amazon ECS service name
   ECS_CLUSTER: Wellsite                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: taskdefinition/dev.json # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: fgate-wellsite-flask-dev.json # set this to the path to your Amazon ECS task definition
 jobs:
   build:
     runs-on: ubuntu-20.04
