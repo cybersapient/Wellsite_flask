@@ -21,13 +21,13 @@
       "name": "flask_backend"
     }
   ],
-  "memory": "512",
+  "memory": "2048",
   "taskRoleArn": "arn:aws:iam::026324440570:role/ecsTaskExecutionRole",
   "family": "Wellsite_Flask",
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "cpu": "256",
+  "cpu": "1024",
   "volumes": []
 }
