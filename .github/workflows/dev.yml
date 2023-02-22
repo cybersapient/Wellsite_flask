@@ -9,7 +9,8 @@ on:
 env:
   ECS_SERVICE: wellsite-flask                # set this to your Amazon ECS service name
   ECS_CLUSTER: Wellsite                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: fgate-wellsite-flask-dev.json # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: Wellsite_Flask   # set this to your Amazon ECS Task Defenition name
+  ECS_TASK_DEFINITION_FILE: fgate-wellsite-flask-dev.json # set this to the path to your Amazon ECS task definition
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -41,3 +42,8 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
           #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA"
+          
+    post_build:
+    commands:
+      - aws ecs register-task-definition --cli-input-json file://$ECS_TASK_DEFINITION_FILE
+      - aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --task-definition $ECS_TASK_DEFINITION --desired-count 1 --deployment-configuration maximumPercent=200,minimumHealthyPercent=50
