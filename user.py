@@ -10,6 +10,10 @@ load_dotenv()
 client = pymongo.MongoClient(os.getenv('MONGO_CONNECTION_STRING'))
 db = client.test
 
+@user.route('/user',methods=['GET'])
+def usergreeter():
+    return "Hello"
+
 @user.route('/user/userRegistration',methods=['POST'])
 def userRegistration():
     coll = db.uvusers
