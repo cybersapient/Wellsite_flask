@@ -43,5 +43,5 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
           #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA"
           sed -i 's/latest/$SHORT_SHA/g' $ECS_TASK_DEFINITION_FILE 
-          aws ecs register-task-definition --cli-input-json file://$ECS_TASK_DEFINITION_FILE
+          aws ecs register-task-definition --cli-input-json file://fgate-wellsite-flask-dev.json
           aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --task-definition $ECS_TASK_DEFINITION --desired-count 1 --deployment-configuration maximumPercent=200,minimumHealthyPercent=50
