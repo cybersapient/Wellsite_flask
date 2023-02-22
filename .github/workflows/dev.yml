@@ -7,8 +7,8 @@ on:
     branches: [ bugfixes ] 
   workflow_dispatch:
 env:
-  ECS_SERVICE: flask                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: Wellsite_UV_flask                 # set this to your Amazon ECS cluster name
+  ECS_SERVICE: wellsite-flask                # set this to your Amazon ECS service name
+  ECS_CLUSTER: Wellsite                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: taskdefinition/dev.json # set this to the path to your Amazon ECS task definition
 jobs:
   build:
