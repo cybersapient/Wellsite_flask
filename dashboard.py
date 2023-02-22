@@ -20,7 +20,7 @@ def getalldashboard():
     doc = list(coll.find( {"userId":userId}) )
     if len(doc) == 0:
         msg = {'message': 'No templates added'}
-        return Response(response=json.dumps(msg), status=200, mimetype='application/json')     
+        return Response(response=json.dumps(msg), status=400, mimetype='application/json')     
     elif len(doc) != 0:
         lst_templates = []
         for rec in doc:

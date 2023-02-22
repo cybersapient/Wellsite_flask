@@ -7,7 +7,9 @@ import os
 
 user = Blueprint('user', __name__)
 load_dotenv()
+print(os.getenv('MONGO_CONNECTION_STRING'))
 client = pymongo.MongoClient(os.getenv('MONGO_CONNECTION_STRING'))
+print("Client initialized")
 db = client.test
 
 @user.route('/user/userRegistration',methods=['POST'])
@@ -133,3 +135,32 @@ def adminVerifyStatus():
     else:
         msg={'data': {"adminVerified":doc[0]['adminAction']}}
         return Response(response=json.dumps(msg), status=200, mimetype='application/json')
+    
+@user.route('/user/getGeneralSetting',methods=['POST'])
+def getGeneralSetting():
+    body = request.get_json()
+    coll=db.generalsetting
+    userId = body.get("userId", "null")
+    q = {"userId": userId}
+    doc = list(coll.find(q))
+    if len(doc)==0:
+        return Response(response=json.dumps({'message':'User not found'}), status=400, mimetype='application/json')
+    else:
+        del doc[0]['_id']
+        return Response(response=json.dumps(doc[0]), status=200, mimetype='application/json')
+
+@user.route('/user/saveGeneralSetting',methods=['POST'])
+def saveGeneralSetting():
+    body = request.get_json()
+    coll=db.generalsetting
+    userId = body.get("userId", "null")
+    q = {"userId": userId}
+    doc = list(coll.find(q))
+    if len(doc)==0:
+        coll.insert_one(body)
+        return Response(response=json.dumps({'message':'General setting saved'}), status=200, mimetype='application/json')
+    elif len(doc)==1:
+        coll.update_one(q, {"$set": {"generalSettingObject": body["generalSettingObject"]}})
+        return Response(response=json.dumps({'message':'General setting updated'}), status=200, mimetype='application/json')
+    else:
+        return Response(response=json.dumps({'message':'Duplication error'}), status=200, mimetype='application/json')
