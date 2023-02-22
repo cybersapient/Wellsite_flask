@@ -368,7 +368,6 @@ def modifyDipAngle():
         if len(rangeNewSet.intersection(rangeOld))!=0:
             return Response(response=json.dumps({"message": "Dip angle cannot be modified as it overlaps with another dip angle"}), status=400, mimetype='application/json')
     try:
-        del body['operation']
         # --------- dip angle for each depth ---------------
         depthRange = list(np.around(np.arange(startDepthNew, endDepthNew+0.1, 0.1),1))
         depth_length = len(depthRange)
@@ -468,7 +467,7 @@ def listDipAngle():
             dict_of_df = df.to_dict('records')
             return Response(response=json.dumps(dict_of_df), status=200, mimetype='application/json')
         except Exception as e:
-            return Response(response=json.dumps([]), status=400, mimetype='application/json')
+            return Response(response=json.dumps([]), status=200, mimetype='application/json')
     
 @welldata.route('/welldata/deleteDipAngle', methods=['POST'])
 def deleteDipAngle():
