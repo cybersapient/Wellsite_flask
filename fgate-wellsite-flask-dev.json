@@ -23,7 +23,7 @@
   ],
   "memory": "2048",
   "taskRoleArn": "arn:aws:iam::026324440570:role/ecsTaskExecutionRole",
-  "family": "wellsite-flask",
+  "family": "Wellsite_Flask",
   "requiresCompatibilities": [
     "FARGATE"
   ],
