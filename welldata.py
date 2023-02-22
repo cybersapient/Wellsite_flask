@@ -122,7 +122,8 @@ def getLogChannels():
     lst_mnemonic = []
     try:
         for val in doc:
-            lst_mnemonic.append({"key": val['key'], "displayName": val['displayName'],"unit":val['unit'],"dataType":val['dataType'],"isTemporal":val['isTemporal']})
+            lst_mnemonic.append({"key": val['key'], "displayName": val['displayName']})
+            #lst_mnemonic.append({"key": val['key'], "displayName": val['displayName'],"unit":val['unit'],"dataType":val['dataType'],"isTemporal":val['isTemporal']})
         sorted_mnemonic = sorted(lst_mnemonic, key=lambda d: d['key']) 
         return Response(response=json.dumps(sorted_mnemonic), status=200, mimetype='application/json')
     except:

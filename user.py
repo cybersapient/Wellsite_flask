@@ -100,7 +100,7 @@ def updateUser():
 def userVerification():
     body = request.get_json()
     userId = body.get('userId', None)
-    adminAction=body.get('adminAction', 'pending')
+    adminVerified=body.get('adminVerified', 'pending')
     coll = db.uvusers
     q = { "userId": userId}
     doc = list(coll.find(q))
@@ -112,7 +112,7 @@ def userVerification():
         return Response(response=json.dumps(msg), status=200, mimetype='application/json')
     else:
         try:
-            coll.update_one(q, {"$set": {"adminAction":adminAction}} )
+            coll.update_one(q, {"$set": {"adminVerified":adminVerified}} )
         except:
             msg={'message': "Error"}
             return Response(response=json.dumps(msg), status=200, mimetype='application/json')
@@ -133,7 +133,7 @@ def adminVerifyStatus():
         msg={'message': "Duplication error"}
         return Response(response=json.dumps(msg), status=200, mimetype='application/json')
     else:
-        msg={'data': {"adminVerified":doc[0]['adminAction']}}
+        msg={'data': {"adminVerified":doc[0]['adminVerified']}}
         return Response(response=json.dumps(msg), status=200, mimetype='application/json')
     
 @user.route('/user/getGeneralSetting',methods=['POST'])

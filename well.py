@@ -61,7 +61,7 @@ def addwell():
     status=body.get("status", None)
     body['status']=status
     body['datasetName']=datasetName
-    body['dataset'] = nameWell.replace(" ","_").lower()+"_depth1"
+    body['dataset'] = nameWell.replace(" ","_")+"_depth1"
     q = {"uidWell": uidWell}
     doc = list(coll.find(q))
     if len(doc)==0:
