@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 env:
   ECS_SERVICE: wellsite-flask                # set this to your Amazon ECS service name
-  ECS_CLUSTER: Wellsite                 # set this to your Amazon ECS cluster name
+  ECS_CLUSTER: wellsite                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: Wellsite_Flask   # set this to your Amazon ECS Task Defenition name
   ECS_TASK_DEFINITION_FILE: fgate-wellsite-flask-dev.json # set this to the path to your Amazon ECS task definition
 jobs:
