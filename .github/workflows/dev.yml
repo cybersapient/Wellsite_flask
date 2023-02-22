@@ -39,6 +39,7 @@ jobs:
           # push it to ECR
           SHORT_SHA=`echo "$IMAGE_TAG" | cut -c1-8`
           sed -i 's/qa/dev/g' Dockerfile
+          cat fgate-wellsite-flask-dev.json
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA
           #echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$SHORT_SHA"
