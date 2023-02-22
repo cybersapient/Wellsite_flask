@@ -422,7 +422,7 @@ def modifyDipAngle():
         coll.delete_one(q)
         rec = coll.insert_one(save_df_data)
     except Exception as e:
-        return Response(response=json.dumps({"message": "Error in adding new dip angle: "+str(e)}), status=400, mimetype='application/json')
+        return Response(response=json.dumps({"message": "Error in adding new dip angle: "+str(e),"error db":str(rec)}), status=400, mimetype='application/json')
     else:
         return Response(response=json.dumps({"message": "Dip angle modified"}), status=200, mimetype='application/json')
     
@@ -457,16 +457,18 @@ def listDipAngle():
     coll = db.dipanglehistory
     customWellId = body.get("customWellId", None)
     q = {"customWellId": customWellId}
-    
     doc = list(coll.find(q))
     if len(doc)==0:
         return Response(response=json.dumps([]), status=200, mimetype='application/json')
     else:
-        df=pd.DataFrame(doc[0]['stations'])
-        df=df.sort_values(by=['startDepth'], ascending = False)
-        df.fillna("", inplace = True)
-        dict_of_df = df.to_dict('records')
-        return Response(response=json.dumps(dict_of_df), status=200, mimetype='application/json')
+        try:
+            df=pd.DataFrame(doc[0]['stations'])
+            df=df.sort_values(by=['startDepth'], ascending = False)
+            df.fillna("", inplace = True)
+            dict_of_df = df.to_dict('records')
+            return Response(response=json.dumps(dict_of_df), status=200, mimetype='application/json')
+        except Exception as e:
+            return Response(response=json.dumps([]), status=400, mimetype='application/json')
     
 @welldata.route('/welldata/deleteDipAngle', methods=['POST'])
 def deleteDipAngle():
