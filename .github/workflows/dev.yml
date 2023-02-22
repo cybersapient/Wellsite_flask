@@ -4,7 +4,7 @@ name: Build-Deploy-BugFixes-Branch
 on:
   
   push:
-    branches: [ bugfixes ] 
+    branches: [ main ] 
   workflow_dispatch:
 env:
   ECS_SERVICE: wellsite-flask                # set this to your Amazon ECS service name
