@@ -1,0 +1,33 @@
+{
+  "executionRoleArn": "arn:aws:iam::026324440570:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/wellsite-flask",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "protocol": "tcp",
+          "containerPort": 80
+        }
+      ],
+      "image": "026324440570.dkr.ecr.us-east-1.amazonaws.com/flask_backend:latest",
+      "name": "flask_backend"
+    }
+  ],
+  "memory": "2048",
+  "taskRoleArn": "arn:aws:iam::026324440570:role/ecsTaskExecutionRole",
+  "family": "wellsite-flask",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "volumes": []
+}
