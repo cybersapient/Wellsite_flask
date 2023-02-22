@@ -5,7 +5,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/wellsite-flask",
+          "awslogs-group": "/ecs/Wellsite_Flask",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -21,13 +21,13 @@
       "name": "flask_backend"
     }
   ],
-  "memory": "2048",
+  "memory": "512",
   "taskRoleArn": "arn:aws:iam::026324440570:role/ecsTaskExecutionRole",
-  "family": "wellsite-flask",
+  "family": "Wellsite_Flask",
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "cpu": "1024",
+  "cpu": "256",
   "volumes": []
 }
