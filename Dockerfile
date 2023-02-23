@@ -1,8 +1,9 @@
-FROM ubuntu:20.04
-RUN apt-get -y  update 
+#FROM ubuntu:20.04
+FROM python:3.7-buster
+#RUN apt-get -y  update 
 COPY . /pythonbackend
 WORKDIR /pythonbackend
-RUN apt install python3-pip -y
+#RUN apt install python3-pip -y
 RUN pip3 install -r requirements.txt
 RUN pip3 install psycopg2-binary
 EXPOSE 80
