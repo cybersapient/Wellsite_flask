@@ -437,19 +437,23 @@ def getDipHistory():
     doc = list(coll.find(q))
     if len(doc)==0:
         return Response(response=json.dumps({"message": "No dip angle history found"}), status=400, mimetype='application/json')
-    depthRange = doc[0]['depthRange']
-    topWindowRange =  doc[0]['topWindowRange']
-    bottomWindowRange = doc[0]['bottomWindowRange']
-    lst=np.asarray(depthRange)
-    startDepthIndex = (np.abs(lst - startDepth)).argmin()
-    endDepthIndex = (np.abs(lst - endDepth)).argmin()+1
-    depthRange = depthRange[startDepthIndex:endDepthIndex]
-    topWindowRange = topWindowRange[startDepthIndex:endDepthIndex]
-    bottomWindowRange = bottomWindowRange[startDepthIndex:endDepthIndex]
-    resp = {
-        'depthRange':depthRange, 'topWindowRange': topWindowRange, 'bottomWindowRange': bottomWindowRange
-    }
-    return Response(response=json.dumps(resp), status=200, mimetype='application/json')
+    else:
+        try:
+            depthRange = doc[0]['depthRange']
+            topWindowRange =  doc[0]['topWindowRange']
+            bottomWindowRange = doc[0]['bottomWindowRange']
+            lst=np.asarray(depthRange)
+            startDepthIndex = (np.abs(lst - startDepth)).argmin()
+            endDepthIndex = (np.abs(lst - endDepth)).argmin()+1
+            depthRange = depthRange[startDepthIndex:endDepthIndex]
+            topWindowRange = topWindowRange[startDepthIndex:endDepthIndex]
+            bottomWindowRange = bottomWindowRange[startDepthIndex:endDepthIndex]
+            resp = {
+                'depthRange':depthRange, 'topWindowRange': topWindowRange, 'bottomWindowRange': bottomWindowRange
+            }
+            return Response(response=json.dumps(resp), status=200, mimetype='application/json')
+        except:
+            return Response(response=json.dumps({"message": "No dip angle history found(Error in fetch)"}), status=400, mimetype='application/json')
 
 @welldata.route('/welldata/listDipAngle', methods=['POST'])
 def listDipAngle():
